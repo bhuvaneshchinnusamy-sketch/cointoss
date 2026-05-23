@@ -49,30 +49,38 @@ h1 {
 /* result-overlay removed; using result-text.result-pop for the same pop animation */
 
 .coin.flip .coin-inner {
-  animation: toss 1.2s ease-in-out;
+  animation: toss 6s cubic-bezier(1,1,1,1) forwards;
 }
 
 @keyframes toss {
   0% {
-    transform: translateY(0) rotateX(0deg) rotateY(0deg);
+    transform: translateY(0) scale(1) rotateX(0deg) rotateY(0deg);
+    opacity: 1;
   }
   15% {
-    transform: translateY(-25px) rotateX(360deg) rotateY(540deg);
+    transform: translateY(-60px) scale(0.95) rotateX(360deg) rotateY(720deg);
   }
-  30% {
-    transform: translateY(-90px) rotateX(900deg) rotateY(1080deg);
+  35% {
+    transform: translateY(-220px) scale(0.6) rotateX(1080deg) rotateY(1440deg);
+    opacity: 0.95;
   }
   50% {
-    transform: translateY(-130px) rotateX(1620deg) rotateY(1800deg);
+    /* coin appears to go out of the page */
+    transform: translateY(-900px) scale(0.18) rotateX(1800deg) rotateY(2160deg);
+    opacity: 0.15;
   }
-  70% {
-    transform: translateY(-85px) rotateX(2340deg) rotateY(2520deg);
+  65% {
+    /* coming back */
+    transform: translateY(-220px) scale(0.6) rotateX(2520deg) rotateY(2880deg);
+    opacity: 0.9;
   }
   85% {
-    transform: translateY(-30px) rotateX(3060deg) rotateY(3240deg);
+    transform: translateY(-40px) scale(0.95) rotateX(3240deg) rotateY(3600deg);
+    opacity: 1;
   }
   100% {
-    transform: translateY(0) rotateX(3600deg) rotateY(3600deg);
+    transform: translateY(0) scale(1) rotateX(3600deg) rotateY(4320deg);
+    opacity: 1;
   }
 }
 

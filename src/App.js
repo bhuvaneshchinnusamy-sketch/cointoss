@@ -16,7 +16,7 @@ function App() {
       const randomResult = outcomes[Math.floor(Math.random() * outcomes.length)];
       setResult(randomResult);
       setFlipping(false);
-    }, 1200);
+    }, 6000);
   };
 
   const showResult = !flipping && result !== null;
