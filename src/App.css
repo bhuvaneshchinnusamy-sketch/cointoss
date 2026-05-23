@@ -8,10 +8,14 @@ body {
 }
 
 .app {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 80px;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  box-sizing: border-box;
 }
 
 h1 {
@@ -21,9 +25,9 @@ h1 {
 }
 
 .coin {
-  width: 140px;
-  height: 140px;
-  margin: 30px;
+  width: clamp(150px, 30vw, 260px);
+  height: clamp(150px, 28vw, 260px);
+  margin: clamp(16px, 4vw, 40px);
   perspective: 1200px;
   position: relative;
 }
@@ -42,14 +46,54 @@ h1 {
   transition: transform 0.6s ease;
 }
 
+/* result-overlay removed; using result-text.result-pop for the same pop animation */
+
 .coin.flip .coin-inner {
-  animation: coinFlip 2s ease-in-out;
+  animation: toss 1.2s ease-in-out;
 }
 
-@keyframes coinFlip {
-  0% { transform: rotateY(0deg); }
-  50% { transform: rotateY(720deg); }
-  100% { transform: rotateY(1080deg); }
+@keyframes toss {
+  0% {
+    transform: translateY(0) rotateX(0deg) rotateY(0deg);
+  }
+  15% {
+    transform: translateY(-25px) rotateX(360deg) rotateY(540deg);
+  }
+  30% {
+    transform: translateY(-90px) rotateX(900deg) rotateY(1080deg);
+  }
+  50% {
+    transform: translateY(-130px) rotateX(1620deg) rotateY(1800deg);
+  }
+  70% {
+    transform: translateY(-85px) rotateX(2340deg) rotateY(2520deg);
+  }
+  85% {
+    transform: translateY(-30px) rotateX(3060deg) rotateY(3240deg);
+  }
+  100% {
+    transform: translateY(0) rotateX(3600deg) rotateY(3600deg);
+  }
+}
+
+.result-text.result-pop {
+  display: inline-block;
+  animation: resultPopText 900ms ease forwards;
+}
+
+@keyframes resultPopText {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.6);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-40px) scale(1.4);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .coin-face {
@@ -57,12 +101,11 @@ h1 {
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  transition: filter 0.2s ease, opacity 0.2s ease;
+  transition: opacity 0.3s ease;
 }
 
- .coin.flip .coin-face,
- .coin.initial-blur .coin-face {
-  filter: blur(5px);
+.coin-generic {
+  background: radial-gradient(circle at 50% 50%, #ffd966 0%, #b8860b 55%, #8a5a00 100%);
 }
 
 .coin-status {
@@ -73,7 +116,7 @@ h1 {
   justify-content: center;
   text-align: center;
   color: #fff;
-  font-weight: 700;
+  font-weight: 900;
   text-shadow: 0 0 12px rgba(0, 0, 0, 0.85);
   opacity: 0;
   transition: opacity 0.2s ease;
@@ -86,8 +129,8 @@ h1 {
 }
 
 .coin-placeholder {
-  font-size: 3rem;
-  font-weight: 700;
+  font-size: 5rem;
+  font-weight: 900;
   color: #333;
   text-shadow: 0 1px 3px rgba(255,255,255,0.8);
 }
@@ -105,6 +148,38 @@ button {
 
 button:hover {
   background: #ff6347;
+}
+
+.transaction-text {
+  color: #fff;
+  font-size: 10rem;
+  font-weight: 8000;
+  margin-bottom: 4px;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
+}
+
+.result-text {
+  color: #fff;
+  font-size: clamp(20px, 6vw, 44px);
+  font-weight: 900;
+  margin: 0;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+  min-height: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Golden glitter pop effect for final result */
+.result-text.result-pop {
+  background: linear-gradient(90deg, #ffd966 0%, #fff3b0 25%, #ffda6a 50%, #ffd966 75%, #ffb84d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: resultPopText 900ms ease forwards;
+  position: relative;
 }
 
 button:disabled {

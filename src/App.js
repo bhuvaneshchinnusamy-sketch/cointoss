@@ -16,25 +16,29 @@ function App() {
       const randomResult = outcomes[Math.floor(Math.random() * outcomes.length)];
       setResult(randomResult);
       setFlipping(false);
-    }, 2000);
+    }, 1200);
   };
 
-  const coinClassName = `coin ${flipping ? "flip" : ""} ${!result ? "initial-blur" : ""} ${result ? result.toLowerCase() : ""}`;
-  const coinImage = result === "Tail" ? tailImg : headImg;
-  const coinAlt = result === "Tail"
-    ? "Tail side of the coin"
-    : "Head side of the coin";
+  const showResult = !flipping && result !== null;
+  const coinClassName = `coin ${flipping ? "flip" : ""} ${showResult ? result.toLowerCase() : ""}`;
+  const coinImage = showResult ? (result === "Tail" ? tailImg : headImg) : headImg;
+  const coinAlt = showResult
+    ? result === "Tail"
+      ? "Tail side of the coin"
+      : "Head side of the coin"
+    : "Flipping coin";
+  const transactionText = flipping ? "Coin is flipping" : showResult ? ` ${result}` : "Ready to toss";
 
   return (
     <div className="app">
-      <h1>Coin Toss</h1>
       <div className={coinClassName}>
         <div className="coin-inner">
           <img src={coinImage} alt={coinAlt} className="coin-face" />
-          <div className="coin-status">
-            {flipping ? "Coin is flipping" : ""}
-          </div>
+          {/* removed inline result-overlay; result animation will be shown in .result-text */}
         </div>
+      </div>
+      <div className={`result-text ${showResult ? "result-pop" : ""}`}>
+        {transactionText}
       </div>
       <button onClick={tossCoin} disabled={flipping}>
         {flipping ? "Tossing..." : "Toss Coin"}
